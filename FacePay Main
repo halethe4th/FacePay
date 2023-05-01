@@ -40,6 +40,28 @@ if prediction == 1:
 else:
   print("Invalid user")
 
+#ID
+import requests
+
+# Get the ID image file
+id_image = open("id_image.png", "rb")
+
+# Create the request body
+request_body = {
+    "id_image": id_image,
+}
+
+# Make the request
+response = requests.post("https://example.com/upload-id", request_body)
+
+# Check the response status code
+if response.status_code == 200:
+    # Success! The ID was uploaded successfully.
+    print("ID uploaded successfully.")
+else:
+    # Error! The ID was not uploaded successfully.
+    print("Error uploading ID.")
+
 #Wallet
 import re
 
