@@ -39,3 +39,32 @@ if prediction == 1:
   # Unlock the wallet here
 else:
   print("Invalid user")
+
+#Wallet
+import re
+
+# Get the user's credit/debit card number
+card_number = input("Enter your credit/debit card number: ")
+
+# Validate the card number
+if not re.match(r'^\d{13,16}$', card_number):
+  print("Invalid card number")
+  return
+
+# Get the card type
+card_type = None
+if card_number.startswith('4'):
+  card_type = 'Visa'
+elif card_number.startswith('5'):
+  card_type = 'MasterCard'
+elif card_number.startswith('37'):
+  card_type = 'American Express'
+elif card_number.startswith('6'):
+  card_type = 'Discover'
+else:
+  print("Unknown card type")
+  return
+
+# Display the card information
+print("Card number:", card_number)
+print("Card type:", card_type)
