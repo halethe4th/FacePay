@@ -1,0 +1,41 @@
+#FacialRecognition
+import cv2
+import numpy as np
+
+# Load the facial recognition model
+model = cv2.face.LBPHFaceRecognizer_create()
+model.load("trained_model.xml")
+
+# Get the user's face image
+image = cv2.imread("user_face.jpg")
+
+# Convert the image to grayscale
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# Detect the faces in the image
+faces = cv2.CascadeClassifier("haarcascade_frontalface_default.xml").detectMultiScale(gray, 1.1, 4)
+
+# If there are no faces detected, return an error
+if len(faces) == 0:
+  print("No faces detected")
+  return
+
+# Get the face coordinates
+(x, y, w, h) = faces[0]
+
+# Crop the face image
+face = image[y:y + h, x:x + w]
+
+# Preprocess the face image
+face = cv2.resize(face, (160, 160))
+face = face.reshape(1, 160, 160, 3)
+
+# Classify the face
+prediction = model.predict(face)
+
+# If the prediction is correct, unlock the wallet
+if prediction == 1:
+  print("Unlocking wallet")
+  # Unlock the wallet here
+else:
+  print("Invalid user")
